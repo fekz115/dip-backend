@@ -27,7 +27,7 @@ public class UserController {
         return userService.registerUser(request);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(@RequestBody LoginUserRequest request) throws LoginOrPasswordIncorrect {
         return jwtTokenUtil.generateToken(userService.login(request).getUser());
     }
