@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Music {
+public class Music implements Content {
     @Id
     private int id;
     private String name;
