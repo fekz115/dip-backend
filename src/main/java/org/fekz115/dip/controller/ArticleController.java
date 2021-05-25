@@ -27,14 +27,14 @@ public class ArticleController {
     }
 
     @PostMapping("{id}/rating")
-    ChangeArticleRatingResponse changeArticleRating(@RequestBody ChangeArticleRatingRequest request, @RequestParam int id, Principal principal) throws UserNotFound {
+    ChangeArticleRatingResponse changeArticleRating(@RequestBody ChangeArticleRatingRequest request, @PathVariable int id, Principal principal) throws UserNotFound {
         request.setUser(getUserFromPrincipal(principal));
         request.setArticleId(id);
         return articleService.changeArticleRating(request);
     }
 
     @GetMapping("{id}")
-    FindArticleByIdResponse findArticleById(@RequestParam int id, Principal principal) {
+    FindArticleByIdResponse findArticleById(@PathVariable int id, Principal principal) {
         User user = null;
         try { user  = getUserFromPrincipal(principal); } catch (UserNotFound ignored) {}
         return articleService.findArticleById(new FindArticleByIdRequest(id, user));
