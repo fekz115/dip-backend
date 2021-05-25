@@ -3,6 +3,8 @@ package org.fekz115.dip.service.request;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.fekz115.dip.model.RatingState;
 import org.fekz115.dip.model.Tag;
 import org.fekz115.dip.model.User;
@@ -46,18 +48,56 @@ public class ArticleServiceRequests {
         private User user;
     }
 
-    @Data
+    @Setter
+    @NoArgsConstructor
     public static class UpdateArticleRequest {
         @JsonIgnore
         private int id;
-        private final Optional<String> title;
-        private final Optional<Set<Tag>> tags;
-        private final Optional<LocalDateTime> publicationDate;
-        private final Optional<List<ContentDto>> content;
-        private final Optional<Boolean> canBeRated;
-        private final Optional<Boolean> canBeCommented;
-        private final Optional<Boolean> showAuthor;
+        private String title;
+        private Set<Tag> tags;
+        private LocalDateTime publicationDate;
+        private List<ContentDto> content;
+        private Boolean canBeRated;
+        private Boolean canBeCommented;
+        private Boolean showAuthor;
         @JsonIgnore
         private User user;
+
+        public int getId() {
+            return this.id;
+        }
+
+        public Optional<String> getTitle() {
+            return Optional.ofNullable(this.title);
+        }
+
+        public Optional<Set<Tag>> getTags() {
+            return Optional.ofNullable(this.tags);
+        }
+
+        public Optional<LocalDateTime> getPublicationDate() {
+            return Optional.ofNullable(this.publicationDate);
+        }
+
+        public Optional<List<ContentDto>> getContent() {
+            return Optional.ofNullable(this.content);
+        }
+
+        public Optional<Boolean> getCanBeRated() {
+            return Optional.ofNullable(this.canBeRated);
+        }
+
+        public Optional<Boolean> getCanBeCommented() {
+            return Optional.ofNullable(this.canBeCommented);
+        }
+
+        public Optional<Boolean> getShowAuthor() {
+            return Optional.ofNullable(this.showAuthor);
+        }
+
+        public User getUser() {
+            return this.user;
+        }
+
     }
 }
