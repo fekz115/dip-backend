@@ -31,7 +31,7 @@ public class ArticleServiceRequests {
     public static class ChangeArticleRatingRequest {
         @JsonIgnore
         private int articleId;
-        private final RatingState newRatingState;
+        private RatingState newRatingState;
         @JsonIgnore
         private User user;
     }
