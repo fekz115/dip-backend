@@ -1,13 +1,7 @@
 package org.fekz115.dip.configuration;
 
-import org.fekz115.dip.repository.MusicRepository;
-import org.fekz115.dip.repository.PictureRepository;
-import org.fekz115.dip.repository.UserRepository;
-import org.fekz115.dip.repository.VideoRepository;
-import org.fekz115.dip.service.FileService;
-import org.fekz115.dip.service.MediaService;
-import org.fekz115.dip.service.UserNotificationService;
-import org.fekz115.dip.service.UserService;
+import org.fekz115.dip.repository.*;
+import org.fekz115.dip.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +33,27 @@ public class ServiceConfiguration {
             MusicRepository musicRepository
     ) {
         return new MediaService(pictureRepository, videoRepository, musicRepository, fileService);
+    }
+
+    @Bean
+    ContentBodyService contentBodyService(
+            ContentBodyRepository contentBodyRepository,
+            TextRepository textRepository,
+            PictureRepository pictureRepository,
+            VideoRepository videoRepository,
+            MusicRepository musicRepository,
+            ContentContainerRepository contentContainerRepository
+    ) {
+        return new ContentBodyService(contentBodyRepository, textRepository, musicRepository, videoRepository, pictureRepository, contentContainerRepository);
+    }
+
+    @Bean
+    ArticleService articleService(
+            ArticleRepository articleRepository,
+            ContentBodyService contentBodyService,
+            TagRepository tagRepository
+    ) {
+        return new ArticleService(articleRepository, tagRepository, contentBodyService);
     }
 
     @Bean(name = "multipartResolver")
