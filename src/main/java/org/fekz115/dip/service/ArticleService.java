@@ -38,7 +38,8 @@ public class ArticleService {
                                         ).getContentBody()
                                 )
                                 .build()
-                )
+                ),
+                request.getAuthor()
         );
     }
 
