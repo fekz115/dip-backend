@@ -48,6 +48,18 @@ public class ArticleService {
         );
     }
 
+    public UpdateArticleResponse updateArticle(UpdateArticleRequest request) {
+        var article = findById(request.getId());
+        request.getTitle().ifPresent(article::setTitle);
+        request.getCanBeCommented().ifPresent(article::setCanBeCommented);
+        request.getCanBeRated().ifPresent(article::setCanBeRated);
+        request.getContent().ifPresent(body -> article.setBody(contentBodyService.createContentBody(new CreateContentBodyRequest(body)).getContentBody()));
+        request.getShowAuthor().ifPresent(article::setShowAuthor);
+        request.getPublicationDate().ifPresent(article::setPublicationDate);
+        request.getTags().ifPresent(tags -> article.setTags(saveTags(tags)));
+        return new UpdateArticleResponse(articleRepository.save(article), request.getUser());
+    }
+
     public ChangeArticleRatingResponse changeArticleRating(ChangeArticleRatingRequest request) {
         var article = findById(request.getArticleId());
         article.getLikes().remove(request.getUser());

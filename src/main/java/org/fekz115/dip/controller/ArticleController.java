@@ -40,6 +40,13 @@ public class ArticleController {
         return articleService.findArticleById(new FindArticleByIdRequest(id, user));
     }
 
+    @PatchMapping("{id}")
+    UpdateArticleResponse updateArticle(@RequestBody UpdateArticleRequest request, Principal principal, @PathVariable int id) throws UserNotFound {
+        request.setUser(getUserFromPrincipal(principal));
+        request.setId(id);
+        return articleService.updateArticle(request);
+    }
+
     private User getUserFromPrincipal(Principal principal) throws UserNotFound {
         return userService.getUserInfo(principal.getName());
     }

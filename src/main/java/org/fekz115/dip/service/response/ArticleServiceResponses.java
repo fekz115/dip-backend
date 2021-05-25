@@ -17,6 +17,15 @@ public class ArticleServiceResponses {
     }
 
     @Data
+    public static class UpdateArticleResponse {
+        private final ArticleDto article;
+
+        public UpdateArticleResponse(Article article, User user) {
+            this.article = new ArticleDto(article, user);
+        }
+    }
+
+    @Data
     public static class ChangeArticleRatingResponse {
         private final ArticleDto article;
 

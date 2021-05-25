@@ -10,6 +10,7 @@ import org.fekz115.dip.service.request.dto.ContentDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class ArticleServiceRequests {
@@ -41,6 +42,21 @@ public class ArticleServiceRequests {
     public static class FindArticleByIdRequest {
         @JsonIgnore
         private int articleId;
+        @JsonIgnore
+        private User user;
+    }
+
+    @Data
+    public static class UpdateArticleRequest {
+        @JsonIgnore
+        private int id;
+        private final Optional<String> title;
+        private final Optional<Set<Tag>> tags;
+        private final Optional<LocalDateTime> publicationDate;
+        private final Optional<List<ContentDto>> content;
+        private final Optional<Boolean> canBeRated;
+        private final Optional<Boolean> canBeCommented;
+        private final Optional<Boolean> showAuthor;
         @JsonIgnore
         private User user;
     }
