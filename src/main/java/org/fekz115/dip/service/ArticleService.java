@@ -43,6 +43,23 @@ public class ArticleService {
         );
     }
 
+    public ChangeArticleRatingResponse changeArticleRating(ChangeArticleRatingRequest request) {
+        var article = articleRepository.findById(request.getArticleId()).orElseThrow();
+        article.getLikes().remove(request.getUser());
+        article.getDislikes().remove(request.getUser());
+        switch (request.getNewRatingState()) {
+            case LIKED:
+                article.getLikes().add(request.getUser());
+                break;
+            case DISLIKED:
+                article.getDislikes().add(request.getUser());
+                break;
+            case UNRATED:
+                break;
+        }
+        return new ChangeArticleRatingResponse(article, request.getUser());
+    }
+
     private Set<Tag> saveTags(Set<Tag> tags) {
         return tags
                 .stream()

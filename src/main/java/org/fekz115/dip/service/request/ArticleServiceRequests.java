@@ -2,6 +2,7 @@ package org.fekz115.dip.service.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.fekz115.dip.model.RatingState;
 import org.fekz115.dip.model.Tag;
 import org.fekz115.dip.model.User;
 import org.fekz115.dip.service.request.dto.ContentDto;
@@ -23,5 +24,14 @@ public class ArticleServiceRequests {
         private final boolean showAuthor;
         @JsonIgnore
         private User author;
+    }
+
+    @Data
+    public static class ChangeArticleRatingRequest {
+        @JsonIgnore
+        private int articleId;
+        private final RatingState newRatingState;
+        @JsonIgnore
+        private User user;
     }
 }

@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.fekz115.dip.service.ArticleService;
 import org.fekz115.dip.service.UserService;
 import org.fekz115.dip.service.exception.UserNotFound;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -26,6 +23,13 @@ public class ArticleController {
     CreateArticleResponse create(@RequestBody CreateArticleRequest request, Principal principal) throws UserNotFound {
         request.setAuthor(userService.getUserInfo(principal.getName()));
         return articleService.createArticle(request);
+    }
+
+    @PostMapping("{id}/rating")
+    ChangeArticleRatingResponse changeArticleRating(@RequestBody ChangeArticleRatingRequest request, @RequestParam int id, Principal principal) throws UserNotFound {
+        request.setUser(userService.getUserInfo(principal.getName()));
+        request.setArticleId(id);
+        return articleService.changeArticleRating(request);
     }
 
 }
