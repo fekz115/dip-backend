@@ -52,4 +52,9 @@ public class ArticleServiceResponses {
             this.page = page.map(a -> new ArticleDto(a, user));
         }
     }
+
+    @Data
+    public static class RemoveArticleResponse {
+
+    }
 }

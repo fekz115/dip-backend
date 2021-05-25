@@ -96,6 +96,11 @@ public class ArticleService {
         );
     }
 
+    public RemoveArticleResponse removeArticle(RemoveArticleRequest request) {
+        articleRepository.deleteById(request.getArticleId());
+        return new RemoveArticleResponse();
+    }
+
     private Set<Tag> saveTags(Set<Tag> tags) {
         return tags
                 .stream()

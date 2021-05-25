@@ -6,7 +6,6 @@ import org.fekz115.dip.service.ArticleService;
 import org.fekz115.dip.service.UserService;
 import org.fekz115.dip.service.exception.UserNotFound;
 import org.fekz115.dip.service.request.dto.PageDto;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -47,6 +46,11 @@ public class ArticleController {
         request.setUser(getUserFromPrincipal(principal));
         request.setId(id);
         return articleService.updateArticle(request);
+    }
+
+    @DeleteMapping("{id}")
+    void removeArticle(@PathVariable int id) {
+        articleService.removeArticle(new RemoveArticleRequest(id));
     }
 
     @GetMapping

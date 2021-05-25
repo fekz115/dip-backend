@@ -110,4 +110,9 @@ public class ArticleServiceRequests {
         private User user;
     }
 
+    @Data
+    public static class RemoveArticleRequest {
+        private final int articleId;
+    }
+
 }
