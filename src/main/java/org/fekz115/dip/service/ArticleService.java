@@ -6,6 +6,8 @@ import org.fekz115.dip.model.Tag;
 import org.fekz115.dip.repository.ArticleRepository;
 import org.fekz115.dip.repository.TagRepository;
 
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,12 +33,15 @@ public class ArticleService {
                                 .showAuthor(request.isShowAuthor())
                                 .canBeRated(request.isCanBeRated())
                                 .canBeCommented(request.isCanBeCommented())
-                                .tags(saveTags(request.getTags()))
+                                .tags(request.getTags()  != null ? saveTags(request.getTags()) : new HashSet<>())
                                 .body(
                                         contentBodyService.createContentBody(
                                                 new CreateContentBodyRequest(request.getContent())
                                         ).getContentBody()
                                 )
+                                .comments(new LinkedList<>())
+                                .likes(new HashSet<>())
+                                .dislikes(new HashSet<>())
                                 .build()
                 ),
                 request.getAuthor()
