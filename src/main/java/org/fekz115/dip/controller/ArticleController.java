@@ -34,10 +34,10 @@ public class ArticleController {
     }
 
     @GetMapping("{id}")
-    FindArticleByIdResponse findArticleById(@RequestBody FindArticleByIdRequest request, @RequestParam int id, Principal principal) {
-        try { request.setUser(getUserFromPrincipal(principal)); } catch (UserNotFound ignored) {}
-        request.setArticleId(id);
-        return articleService.findArticleById(request);
+    FindArticleByIdResponse findArticleById(@RequestParam int id, Principal principal) {
+        User user = null;
+        try { user  = getUserFromPrincipal(principal); } catch (UserNotFound ignored) {}
+        return articleService.findArticleById(new FindArticleByIdRequest(id, user));
     }
 
     private User getUserFromPrincipal(Principal principal) throws UserNotFound {

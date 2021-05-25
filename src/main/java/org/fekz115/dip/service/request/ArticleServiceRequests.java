@@ -1,6 +1,7 @@
 package org.fekz115.dip.service.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.fekz115.dip.model.RatingState;
 import org.fekz115.dip.model.Tag;
@@ -36,6 +37,7 @@ public class ArticleServiceRequests {
     }
 
     @Data
+    @AllArgsConstructor
     public static class FindArticleByIdRequest {
         @JsonIgnore
         private int articleId;
