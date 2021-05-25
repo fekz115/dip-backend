@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 public class Comment {
     @Id
+    @GeneratedValue
     private int id;
     @ManyToOne
     private User user;

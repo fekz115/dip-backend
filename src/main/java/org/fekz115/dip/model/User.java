@@ -14,6 +14,7 @@ import java.util.Set;
 @Data
 public class User implements UserDetails {
     @Id
+    @GeneratedValue
     private int id;
     private String login;
     @JsonIgnore

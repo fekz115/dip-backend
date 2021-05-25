@@ -2,15 +2,13 @@ package org.fekz115.dip.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
 public class Address {
     @Id
+    @GeneratedValue
     private int id;
     private String building;
     @ManyToOne

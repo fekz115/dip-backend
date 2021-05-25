@@ -1,23 +1,24 @@
 package org.fekz115.dip.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContentContainer {
     @Id
+    @GeneratedValue
     private int id;
     private int index;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Text text;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Music music;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Picture picture;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Video video;
 }
