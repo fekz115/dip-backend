@@ -1,7 +1,5 @@
 package org.fekz115.dip.controller;
 
-import lombok.AllArgsConstructor;
-import org.fekz115.dip.model.User;
 import org.fekz115.dip.service.ArticleService;
 import org.fekz115.dip.service.UserService;
 import org.fekz115.dip.service.exception.UserNotFound;
@@ -15,34 +13,57 @@ import static org.fekz115.dip.service.response.ArticleServiceResponses.*;
 
 @RestController
 @RequestMapping("/api/article")
-@AllArgsConstructor
-public class ArticleController {
+public class ArticleController extends CommonController {
 
-    private final UserService userService;
     private final ArticleService articleService;
 
+    public ArticleController(
+            UserService userService,
+            ArticleService articleService
+    ) {
+        super(userService);
+        this.articleService = articleService;
+    }
+
     @PostMapping("/create")
-    CreateArticleResponse create(@RequestBody CreateArticleRequest request, Principal principal) throws UserNotFound {
+    CreateArticleResponse create(
+            @RequestBody CreateArticleRequest request,
+            Principal principal
+    ) throws UserNotFound {
         request.setAuthor(getUserFromPrincipal(principal));
         return articleService.createArticle(request);
     }
 
     @PostMapping("{id}/rating")
-    ChangeArticleRatingResponse changeArticleRating(@RequestBody ChangeArticleRatingRequest request, @PathVariable int id, Principal principal) throws UserNotFound {
+    ChangeArticleRatingResponse changeArticleRating(
+            @PathVariable int id,
+            @RequestBody ChangeArticleRatingRequest request,
+            Principal principal
+    ) throws UserNotFound {
         request.setUser(getUserFromPrincipal(principal));
         request.setArticleId(id);
         return articleService.changeArticleRating(request);
     }
 
     @GetMapping("{id}")
-    FindArticleByIdResponse findArticleById(@PathVariable int id, Principal principal) {
-        User user = null;
-        try { user  = getUserFromPrincipal(principal); } catch (UserNotFound ignored) {}
-        return articleService.findArticleById(new FindArticleByIdRequest(id, user));
+    FindArticleByIdResponse findArticleById(
+            @PathVariable int id,
+            Principal principal
+    ) {
+        return articleService.findArticleById(
+                new FindArticleByIdRequest(
+                        id,
+                        tryGetUserFromPrincipal(principal)
+                )
+        );
     }
 
     @PatchMapping("{id}")
-    UpdateArticleResponse updateArticle(@RequestBody UpdateArticleRequest request, Principal principal, @PathVariable int id) throws UserNotFound {
+    UpdateArticleResponse updateArticle(
+            @PathVariable int id,
+            @RequestBody UpdateArticleRequest request,
+            Principal principal
+    ) throws UserNotFound {
         request.setUser(getUserFromPrincipal(principal));
         request.setId(id);
         return articleService.updateArticle(request);
@@ -50,17 +71,22 @@ public class ArticleController {
 
     @DeleteMapping("{id}")
     void removeArticle(@PathVariable int id) {
-        articleService.removeArticle(new RemoveArticleRequest(id));
+        articleService.removeArticle(
+                new RemoveArticleRequest(id)
+        );
     }
 
     @GetMapping
-    FindArticlesResponse findArticles(@RequestParam int pageSize, @RequestParam int page, Principal principal) {
-        FindArticlesRequest request = new FindArticlesRequest(new PageDto(page, pageSize));
-        try { request.setUser(getUserFromPrincipal(principal)); } catch (UserNotFound ignored) {}
-        return articleService.findArticles(request);
-    }
-
-    private User getUserFromPrincipal(Principal principal) throws UserNotFound {
-        return userService.getUserInfo(principal.getName());
+    FindArticlesResponse findArticles(
+            @RequestParam int pageSize,
+            @RequestParam int page,
+            Principal principal
+    ) {
+        return articleService.findArticles(
+                new FindArticlesRequest(
+                        new PageDto(page, pageSize),
+                        tryGetUserFromPrincipal(principal)
+                )
+        );
     }
 }
