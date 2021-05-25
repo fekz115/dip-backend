@@ -5,6 +5,7 @@ import org.fekz115.dip.model.Article;
 import org.fekz115.dip.model.Tag;
 import org.fekz115.dip.repository.ArticleRepository;
 import org.fekz115.dip.repository.TagRepository;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -80,6 +81,17 @@ public class ArticleService {
     public FindArticleByIdResponse findArticleById(FindArticleByIdRequest request) {
         return new FindArticleByIdResponse(
                 findById(request.getArticleId()),
+                request.getUser()
+        );
+    }
+
+    public FindArticlesResponse findArticles(FindArticlesRequest request) {
+        PageRequest page = PageRequest.of(
+                request.getPage().getPage(),
+                request.getPage().getPageSize()
+        );
+        return new FindArticlesResponse(
+                articleRepository.findAll(page),
                 request.getUser()
         );
     }

@@ -9,6 +9,8 @@ import org.fekz115.dip.model.RatingState;
 import org.fekz115.dip.model.Tag;
 import org.fekz115.dip.model.User;
 import org.fekz115.dip.service.request.dto.ContentDto;
+import org.fekz115.dip.service.request.dto.PageDto;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -100,4 +102,12 @@ public class ArticleServiceRequests {
         }
 
     }
+
+    @Data
+    public static class FindArticlesRequest {
+        private final PageDto page;
+        @JsonIgnore
+        private User user;
+    }
+
 }

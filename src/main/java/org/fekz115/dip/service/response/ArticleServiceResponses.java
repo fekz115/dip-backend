@@ -4,6 +4,7 @@ import lombok.Data;
 import org.fekz115.dip.model.Article;
 import org.fekz115.dip.model.User;
 import org.fekz115.dip.service.response.dto.ArticleDto;
+import org.springframework.data.domain.Page;
 
 public class ArticleServiceResponses {
 
@@ -40,6 +41,15 @@ public class ArticleServiceResponses {
 
         public FindArticleByIdResponse(Article article, User user) {
             this.article = new ArticleDto(article, user);
+        }
+    }
+
+    @Data
+    public static class FindArticlesResponse {
+        private final Page<ArticleDto> page;
+
+        public FindArticlesResponse(Page<Article> page, User user) {
+            this.page = page.map(a -> new ArticleDto(a, user));
         }
     }
 }
