@@ -20,10 +20,14 @@ public class ArticleDto {
         author = new UserMinimal(article.getAuthor());
         likes = article.getLikes().size();
         dislikes = article.getDislikes().size();
-        if(article.getLikes().contains(user)) {
-            ratingState = RatingState.LIKED;
-        } else if (article.getDislikes().contains(user)) {
-            ratingState = RatingState.DISLIKED;
+        if(user != null) {
+            if (article.getLikes().contains(user)) {
+                ratingState = RatingState.LIKED;
+            } else if (article.getDislikes().contains(user)) {
+                ratingState = RatingState.DISLIKED;
+            } else {
+                ratingState = RatingState.UNRATED;
+            }
         } else {
             ratingState = RatingState.UNRATED;
         }

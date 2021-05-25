@@ -1,6 +1,7 @@
 package org.fekz115.dip.controller;
 
 import lombok.AllArgsConstructor;
+import org.fekz115.dip.model.User;
 import org.fekz115.dip.service.ArticleService;
 import org.fekz115.dip.service.UserService;
 import org.fekz115.dip.service.exception.UserNotFound;
@@ -21,15 +22,25 @@ public class ArticleController {
 
     @PostMapping("/create")
     CreateArticleResponse create(@RequestBody CreateArticleRequest request, Principal principal) throws UserNotFound {
-        request.setAuthor(userService.getUserInfo(principal.getName()));
+        request.setAuthor(getUserFromPrincipal(principal));
         return articleService.createArticle(request);
     }
 
     @PostMapping("{id}/rating")
     ChangeArticleRatingResponse changeArticleRating(@RequestBody ChangeArticleRatingRequest request, @RequestParam int id, Principal principal) throws UserNotFound {
-        request.setUser(userService.getUserInfo(principal.getName()));
+        request.setUser(getUserFromPrincipal(principal));
         request.setArticleId(id);
         return articleService.changeArticleRating(request);
     }
 
+    @GetMapping("{id}")
+    FindArticleByIdResponse findArticleById(@RequestBody FindArticleByIdRequest request, @RequestParam int id, Principal principal) {
+        try { request.setUser(getUserFromPrincipal(principal)); } catch (UserNotFound ignored) {}
+        request.setArticleId(id);
+        return articleService.findArticleById(request);
+    }
+
+    private User getUserFromPrincipal(Principal principal) throws UserNotFound {
+        return userService.getUserInfo(principal.getName());
+    }
 }

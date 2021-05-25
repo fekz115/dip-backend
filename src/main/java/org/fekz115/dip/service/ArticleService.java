@@ -44,7 +44,7 @@ public class ArticleService {
     }
 
     public ChangeArticleRatingResponse changeArticleRating(ChangeArticleRatingRequest request) {
-        var article = articleRepository.findById(request.getArticleId()).orElseThrow();
+        var article = findById(request.getArticleId());
         article.getLikes().remove(request.getUser());
         article.getDislikes().remove(request.getUser());
         switch (request.getNewRatingState()) {
@@ -60,6 +60,13 @@ public class ArticleService {
         return new ChangeArticleRatingResponse(article, request.getUser());
     }
 
+    public FindArticleByIdResponse findArticleById(FindArticleByIdRequest request) {
+        return new FindArticleByIdResponse(
+                findById(request.getArticleId()),
+                request.getUser()
+        );
+    }
+
     private Set<Tag> saveTags(Set<Tag> tags) {
         return tags
                 .stream()
@@ -73,4 +80,7 @@ public class ArticleService {
                 .collect(Collectors.toSet());
     }
 
+    private Article findById(int id) {
+        return articleRepository.findById(id).orElseThrow();
+    }
 }

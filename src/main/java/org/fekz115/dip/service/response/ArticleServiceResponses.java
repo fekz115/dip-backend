@@ -24,4 +24,13 @@ public class ArticleServiceResponses {
             this.article = new ArticleDto(article, user);
         }
     }
+
+    @Data
+    public static class FindArticleByIdResponse {
+        private final ArticleDto article;
+
+        public FindArticleByIdResponse(Article article, User user) {
+            this.article = new ArticleDto(article, user);
+        }
+    }
 }

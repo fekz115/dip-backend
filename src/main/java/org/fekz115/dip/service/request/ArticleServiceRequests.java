@@ -34,4 +34,12 @@ public class ArticleServiceRequests {
         @JsonIgnore
         private User user;
     }
+
+    @Data
+    public static class FindArticleByIdRequest {
+        @JsonIgnore
+        private int articleId;
+        @JsonIgnore
+        private User user;
+    }
 }
