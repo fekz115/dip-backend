@@ -4,8 +4,12 @@ import org.fekz115.dip.repository.*;
 import org.fekz115.dip.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.BufferedImageHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import java.awt.image.BufferedImage;
 
 @Configuration
 public class ServiceConfiguration {
@@ -68,6 +72,11 @@ public class ServiceConfiguration {
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver commonsMultipartResolver(){
         return new CommonsMultipartResolver();
+    }
+
+    @Bean
+    public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
+        return new BufferedImageHttpMessageConverter();
     }
 
 }
