@@ -73,6 +73,11 @@ alter table if exists city
    references country;
 
 alter table if exists comment
+  add constraint FK5yx0uphgjc6ik6hb82kkw501y
+  foreign key (article_id)
+  references article;
+
+alter table if exists comment
    add constraint FK5k2o0jjr1ydr7abifbkxr205i
    foreign key (content_body_id)
    references content_body;
@@ -91,14 +96,17 @@ alter table if exists comment_dislikes
    add constraint FK8btjkr9yhlfhn1t8aam7t9gt1
    foreign key (dislikes_id)
    references usr;
+
 alter table if exists comment_dislikes
    add constraint FKhtnn43n3lworilxuedc6swwvi
    foreign key (comment_id)
    references comment;
+
 alter table if exists comment_likes
    add constraint FKfacf2w1ogw6pc1n102igo1sd8
    foreign key (likes_id)
    references usr;
+
 alter table if exists comment_likes
    add constraint FKd0epu3dcjc57pwe7lt5jgfqsi
    foreign key (comment_id)

@@ -56,6 +56,15 @@ public class ServiceConfiguration {
         return new ArticleService(articleRepository, tagRepository, contentBodyService);
     }
 
+    @Bean
+    CommentService commentService(
+            CommentRepository commentRepository,
+            ArticleRepository articleRepository,
+            ContentBodyService contentBodyService
+    ) {
+        return new CommentService(contentBodyService, commentRepository, articleRepository);
+    }
+
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver commonsMultipartResolver(){
         return new CommonsMultipartResolver();

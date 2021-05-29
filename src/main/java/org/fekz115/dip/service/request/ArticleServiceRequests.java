@@ -104,6 +104,7 @@ public class ArticleServiceRequests {
     }
 
     @Data
+    @AllArgsConstructor
     public static class FindArticlesRequest {
         private final PageDto page;
         @JsonIgnore

@@ -53,6 +53,7 @@ create table city (
 create table comment (
    id int4 not null,
     publication_date timestamp,
+    article_id int4,
     content_body_id int4,
     reply_to_id int4,
     user_id int4,

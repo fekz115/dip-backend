@@ -2,6 +2,7 @@ package org.fekz115.dip.service.response.dto;
 
 import lombok.Data;
 import org.fekz115.dip.model.*;
+import org.fekz115.dip.util.DtoUtils;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -20,17 +21,7 @@ public class ArticleDto {
         author = new UserMinimal(article.getAuthor());
         likes = article.getLikes().size();
         dislikes = article.getDislikes().size();
-        if(user != null) {
-            if (article.getLikes().contains(user)) {
-                ratingState = RatingState.LIKED;
-            } else if (article.getDislikes().contains(user)) {
-                ratingState = RatingState.DISLIKED;
-            } else {
-                ratingState = RatingState.UNRATED;
-            }
-        } else {
-            ratingState = RatingState.UNRATED;
-        }
+        ratingState = DtoUtils.getRatingState(user, article.getLikes(), article.getDislikes());
     }
 
     private final int id;
