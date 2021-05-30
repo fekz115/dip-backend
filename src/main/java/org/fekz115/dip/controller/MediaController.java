@@ -34,7 +34,7 @@ public class MediaController {
 
     @PostMapping("/video/create")
     public int createVideo(@RequestBody String name) {
-        return mediaService.createMusic(name);
+        return mediaService.createVideo(name);
     }
 
     @PostMapping("/music/create")
