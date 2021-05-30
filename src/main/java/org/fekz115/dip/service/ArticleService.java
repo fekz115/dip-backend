@@ -75,7 +75,7 @@ public class ArticleService {
             case UNRATED:
                 break;
         }
-        return new ChangeArticleRatingResponse(article, request.getUser());
+        return new ChangeArticleRatingResponse(articleRepository.save(article), request.getUser());
     }
 
     public FindArticleByIdResponse findArticleById(FindArticleByIdRequest request) {
