@@ -9,7 +9,7 @@ import org.fekz115.dip.service.MediaType;
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type"
+        property = "contentType"
 )
 @JsonSubTypes(
         value = {
