@@ -1,0 +1,1 @@
+alter table text alter column data type varchar(10000);
