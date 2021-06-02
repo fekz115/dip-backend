@@ -11,8 +11,8 @@ public class Address {
     @GeneratedValue
     private int id;
     private String building;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Street street;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
 }

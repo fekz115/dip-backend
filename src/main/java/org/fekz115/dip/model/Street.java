@@ -2,10 +2,7 @@ package org.fekz115.dip.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -14,6 +11,6 @@ public class Street {
     @GeneratedValue
     private int id;
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private City city;
 }

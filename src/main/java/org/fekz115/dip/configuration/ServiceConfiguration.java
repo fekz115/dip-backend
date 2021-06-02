@@ -24,7 +24,7 @@ public class ServiceConfiguration {
                 userRepository,
                 passwordEncoder::encode,
                 passwordEncoder::matches,
-                () -> String.valueOf((int)(Math.random() * 5)),
+                () -> String.valueOf((int) (Math.random() * 5)),
                 mailService
         );
     }
@@ -69,8 +69,34 @@ public class ServiceConfiguration {
         return new CommentService(contentBodyService, commentRepository, articleRepository);
     }
 
+    @Bean
+    EventService eventService(
+            EventRepository eventRepository,
+            ArticleRepository articleRepository,
+            EventLocationRepository eventLocationRepository,
+            AddressService addressService
+    ) {
+        return new EventService(
+                eventRepository,
+                articleRepository,
+                eventLocationRepository,
+                addressService
+        );
+    }
+
+    @Bean
+    AddressService addressService(
+            CountryRepository countryRepository,
+            CityRepository cityRepository,
+            StreetRepository streetRepository,
+            AddressRepository addressRepository,
+            LocationRepository locationRepository
+    ) {
+        return new AddressService(countryRepository, cityRepository, streetRepository, addressRepository, locationRepository);
+    }
+
     @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver commonsMultipartResolver(){
+    public CommonsMultipartResolver commonsMultipartResolver() {
         return new CommonsMultipartResolver();
     }
 
