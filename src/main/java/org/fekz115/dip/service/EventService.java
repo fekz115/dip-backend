@@ -6,6 +6,7 @@ import org.fekz115.dip.model.EventLocation;
 import org.fekz115.dip.repository.ArticleRepository;
 import org.fekz115.dip.repository.EventLocationRepository;
 import org.fekz115.dip.repository.EventRepository;
+import org.fekz115.dip.repository.PictureRepository;
 import org.fekz115.dip.service.request.EventServiceRequests.*;
 import org.fekz115.dip.service.request.dto.EventLocationDto;
 
@@ -19,6 +20,7 @@ public class EventService {
     private final ArticleRepository articleRepository;
     private final EventLocationRepository eventLocationRepository;
     private final AddressService addressService;
+    private final PictureRepository pictureRepository;
 
     public Event createEvent(
             CreateEventRequest request
@@ -27,6 +29,7 @@ public class EventService {
                 .save(Event
                         .builder()
                         .article(articleRepository.findById(request.getArticleId()).orElseThrow())
+                        .poster(pictureRepository.findById(request.getPictureId()).orElseThrow())
                         .locations(
                                 saveEventLocations(request.getLocations())
                         )
@@ -57,6 +60,7 @@ public class EventService {
         Event event = eventRepository.findById(request.getEventId()).orElseThrow();
         request.getArticleId().ifPresent(article -> event.setArticle(articleRepository.findById(article).orElseThrow()));
         request.getLocations().ifPresent(l -> event.setLocations(saveEventLocations(l)));
+        request.getPictureId().ifPresent(id -> event.setPoster(pictureRepository.findById(id).orElseThrow()));
         return eventRepository.save(event);
     }
 

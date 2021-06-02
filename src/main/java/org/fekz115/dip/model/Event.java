@@ -21,4 +21,6 @@ public class Event {
     private Article article;
     @OneToMany
     private List<EventLocation> locations;
+    @ManyToOne
+    private Picture poster;
 }

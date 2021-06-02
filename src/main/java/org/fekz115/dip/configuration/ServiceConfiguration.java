@@ -74,13 +74,15 @@ public class ServiceConfiguration {
             EventRepository eventRepository,
             ArticleRepository articleRepository,
             EventLocationRepository eventLocationRepository,
-            AddressService addressService
+            AddressService addressService,
+            PictureRepository pictureRepository
     ) {
         return new EventService(
                 eventRepository,
                 articleRepository,
                 eventLocationRepository,
-                addressService
+                addressService,
+                pictureRepository
         );
     }
 
