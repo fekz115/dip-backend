@@ -6,7 +6,6 @@ import org.fekz115.dip.model.Picture;
 import org.fekz115.dip.model.Video;
 import org.fekz115.dip.service.MediaService;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,8 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @AllArgsConstructor
 @RestController
@@ -74,6 +74,6 @@ public class MediaController {
 
     private ResponseEntity<ByteArrayResource> serveFile(File file) throws IOException {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getName() + "\"").body(new ByteArrayResource(new FileInputStream(file).readAllBytes()));
+                "attachment; filename=\"" + URLEncoder.encode(file.getName(), StandardCharsets.UTF_8.toString()) + "\"").body(new ByteArrayResource(new FileInputStream(file).readAllBytes()));
     }
 }
