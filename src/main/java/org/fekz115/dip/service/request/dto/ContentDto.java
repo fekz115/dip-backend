@@ -41,7 +41,7 @@ public abstract class ContentDto {
         private final boolean bold;
         private final boolean italic;
         private final int size;
-        private final int color;
+        private final long color;
         private final boolean separate;
     }
 }

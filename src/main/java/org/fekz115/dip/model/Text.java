@@ -24,6 +24,6 @@ public class Text implements Content {
     private boolean bold;
     private boolean italic;
     private int size;
-    private int color;
+    private long color;
     private boolean separate;
 }

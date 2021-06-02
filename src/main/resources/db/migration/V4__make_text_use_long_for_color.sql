@@ -1,0 +1,1 @@
+alter table text alter column color type bigint;
